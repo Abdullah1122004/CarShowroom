@@ -1,0 +1,129 @@
+﻿@page
+@model CarShowroom.Pages.CarsModel
+
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    ViewData["Title"] = "إدارة السيارات";
+}
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="~/css/Cars.css" />
+</head>
+<body>
+    <div class="page-container">
+
+        <div class="header-bar">
+            <div>
+                <h1>🚗 إدارة السيارات</h1>
+                <p class="subtitle">عرض وتعديل بيانات السيارات في المعرض</p>
+            </div>
+          
+            <div class="actions-bar">
+                <form method="get" class="search-form">
+                    <input type="text" name="search" value="@Request.Query["search"]" placeholder="🔍 ابحث عن سيارة..." />
+                    <button type="submit">بحث</button>
+                </form>
+             
+                <a href="/AddCar" class="add-btn">+ إضافة سيارة جديدة</a>
+                <a href="/Index" class="dashboard-btn">🏠 لوحة التحكم</a>
+            </div>
+        </div>
+
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>الصورة</th>
+                        <th>الموديل</th>
+                        <th>السنة</th>
+                        <th>السعر</th>
+                        <th>الإجراءات</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.CarsList.Count == 0)
+                    {
+                        <tr>
+                            <td colspan="5" class="no-data">🚘 لا توجد سيارات مضافة حالياً</td>
+                        </tr>
+                    }
+                    else
+                    {
+                        foreach (var car in Model.CarsList)
+                        {
+                            <tr>
+                                <td><img src="@car.ImageUrl" alt="صورة السيارة" class="car-image" /></td>
+                                <td>@car.Model</td>
+                                <td>@car.Year</td>
+                                <td>@car.Price.ToString("N0") جنيه</td>
+                                <td class="actions">
+                                    <a href="/EditCar/@car.Id" class="edit-btn">تعديل</a>
+                                    <form method="post" asp-page-handler="Delete" style="display:inline;" onsubmit="return openDeleteModal(this);">
+                                        <input type="hidden" name="id" value="@car.Id" />
+                                        <button type="submit" class="delete-btn">🗑️ حذف</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+
+              @*   !-- 🔹 نافذة التأكيد --> *@
+        <div id="confirmModal" class="modal">
+            <div class="modal-content">
+                <h2>تأكيد الحذف</h2>
+                <p>هل أنت متأكد أنك تريد حذف هذه السيارة؟</p>
+                <div class="modal-buttons">
+                    <button id="confirmDeleteBtn" class="confirm-btn">✅ نعم، احذف</button>
+                    <button id="cancelDeleteBtn" class="cancel-btn">❌ إلغاء</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div id="toast" class="toast show">
+        <span>@TempData["SuccessMessage"]</span>
+    </div>
+}
+
+
+<script>
+    let formToSubmit = null;
+
+    function openDeleteModal(form) {
+        formToSubmit = form;
+        document.getElementById("confirmModal").style.display = "flex";
+        return false; // منع الإرسال مؤقتاً
+    }
+
+    document.getElementById("confirmDeleteBtn").onclick = function () {
+        if (formToSubmit) formToSubmit.submit();
+        document.getElementById("confirmModal").style.display = "none";
+    };
+
+    document.getElementById("cancelDeleteBtn").onclick = function () {
+        document.getElementById("confirmModal").style.display = "none";
+    };
+
+
+
+ window.onload = function () {
+    const toast = document.getElementById("toast");
+    if (toast) {
+        setTimeout(() => {
+            toast.classList.remove("show");
+        }, 3000); // يختفي بعد 3 ثوانٍ
+    }
+};
+</script>
+</html>

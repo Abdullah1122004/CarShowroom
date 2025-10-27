@@ -1,0 +1,46 @@
+﻿@page "/Login"
+@model CarShowroom.Pages.LoginModel
+@{
+    ViewData["Title"] = "تسجيل الدخول";
+}
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="utf-8" />
+    <title>نظام إدارة المعرض - تسجيل الدخول</title>
+    <link rel="stylesheet" href="~/css/login.css" />
+</head>
+<body>
+    <div class="container">
+        <div class="login-card">
+            <div class="icon">
+                <div class="checkmark">✔</div>
+            </div>
+            <h2>نظام إدارة المعرض</h2>
+            <p class="subtitle">تسجيل دخول الموظفين</p>
+
+            <form  method="post">
+                <label>اسم المستخدم</label>
+                <input type="text" name="Username" placeholder="أدخل اسم المستخدم" />
+
+                <label>كلمة المرور</label>
+                <input type="password" name="Password" placeholder="أدخل كلمة المرور" />
+
+                <button type="submit">➡ تسجيل الدخول</button>
+            </form>
+
+            @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+            {
+                <p class="error">@Model.ErrorMessage</p>
+            }
+
+            <div class="info-box">
+                <p>بيانات تجريبية:</p>
+                <p>👤 المستخدم: <b>admin</b></p>
+                <p>🔑 الكلمة: <b>admin123</b></p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

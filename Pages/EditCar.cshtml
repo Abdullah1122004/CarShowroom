@@ -1,0 +1,62 @@
+﻿@page "{id:int}"
+@model CarShowroom.Pages.EditCarModel
+
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    ViewData["Title"] = "تعديل بيانات السيارة";
+}
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="~/css/EditCar.css" />
+</head>
+<body>
+    <div class="edit-container">
+        <div class="card">
+            <h2>✏️ تعديل بيانات السيارة</h2>
+
+            <form method="post">
+                @Html.AntiForgeryToken()
+
+                <input type="hidden" asp-for="Car.Id" />
+
+                <label>الموديل</label>
+                <input type="text" asp-for="Car.Model" placeholder="أدخل موديل السيارة" required />
+
+                <label>سنة الصنع</label>
+                <input type="number" asp-for="Car.Year" placeholder="مثلاً 2023" required />
+
+                <label>السعر</label>
+                <input type="number" asp-for="Car.Price" step="0.01" placeholder="أدخل السعر بالجنيه" required />
+
+                <label>رابط الصورة</label>
+                <input type="text" asp-for="Car.ImageUrl" placeholder="أدخل رابط الصورة أو المسار داخل Images/" />
+
+                <div class="buttons">
+                    <button type="submit" class="btn-primary">💾 حفظ التعديلات</button>
+                    <a href="/Cars" class="btn-secondary">↩️ إلغاء</a>
+                </div>
+
+                @if (!string.IsNullOrEmpty(Model.Message))
+                {
+                    <p class="message">@Model.Message</p>
+                }
+            </form>
+        </div>
+    </div>
+</body>
+<script>
+    window.onload = function () {
+        const toast = document.getElementById("toast");
+        if (toast) {
+            setTimeout(() => {
+                toast.classList.remove("show");
+            }, 3000); // يختفي بعد 3 ثوانٍ
+        }
+    };
+</script>
+</html>

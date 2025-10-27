@@ -1,0 +1,104 @@
+﻿/* 1- إعدادات عامة للصفحة */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #f4f6f9;
+    display: flex;
+}
+
+/* 2- الشريط الجانبي (القائمة اليمنى) */
+/* الشريط الجانبي */
+.sidebar {
+    width: 250px;
+    background: linear-gradient(180deg, #1f2937 0%, #11182740 100%);
+    color: #e5e7eb;
+    height: 100vh;
+    padding-top: 20px;
+    position: fixed;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    padding-right: 20px;
+    box-shadow: -2px 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.sidebar h2 {
+    margin-bottom: 40px;
+    color: #60a5fa;
+    letter-spacing: 1px;
+}
+
+.sidebar a {
+    display: block;
+    color: #d1d5db;
+    text-decoration: none;
+    padding: 12px 20px;
+    width: 80%;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    transition: 0.3s;
+    font-size: 15px;
+}
+
+    .sidebar a:hover {
+        background-color: #d0b6b633;
+        color: #ffffff;
+    }
+/* 3- المحتوى الرئيسي */
+.main-content {
+    flex-grow: 1;
+    margin-right: 290px;
+    padding: 30px;
+}
+
+/* 4- العنوان العلوي */
+header {
+    background-color: white;
+    padding: 15px 30px;
+    border-radius: 15px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    margin-bottom: 30px;
+}
+
+/* 5- البطاقات الإحصائية */
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 35px;
+}
+
+.card {
+    background-color: white;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    text-align: center;
+}
+
+.card h3 {
+    margin: 10px 0;
+}
+
+.card p {
+    font-size: 22px;
+    color: #0078d7;
+    font-weight: bold;
+}
+
+/* 6- زر تسجيل الخروج */
+form {
+    margin: auto auto 35px auto;
+}
+.logout {
+    background: #ef4444b5 !important;
+    color: white !important;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    transition: 0.3s;
+}
+
+.logout:hover { 
+    background-color: #dc2626 !important;
+}
